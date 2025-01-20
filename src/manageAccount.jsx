@@ -13,4 +13,3 @@ export default () => {
             style={{ color: 'white', backgroundColor: 'green' }}>manage accounts</button >
     </>
 }
-
