@@ -68,5 +68,3 @@ let EditDueForm = (prop) => {
 
     }
 }
-
-confirm("fdg")
