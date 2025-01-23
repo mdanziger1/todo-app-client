@@ -15,7 +15,7 @@ export default (prop) => {
                 {prop.countUnDone > 0 && prop.countDone > 0 && <strong> & </strong>}
                 {prop.countDone > 0 && <span style={{ color: 'darkGreen' }}>  {prop.countDone} tasks Completed</span>}
                 {/* prop.tasks.message && 'jwt malformed' && navigate('/login') */}
-                <div >{prop.tasks./* filter(task => !task.done). */sort((a, b) => a.id - b.id).map((task, index) => {
+                <div >{prop.tasks./* filter(task => !task.done). *//* sort((a, b) => a.id - b.id). */map((task, index) => {
                     return !task.done ? (
                         <div key={task.id} style={{
                             ...new Date(task.due).getTime() < Date.now() ? { color: 'red' } :
