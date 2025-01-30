@@ -13,6 +13,7 @@ export default (props) => {
 
     const uploadImg = async () => {
         const fd = new FormData()
+        
         fd.append('task-img', file)
         await fetch(`http://${serverHost}:${port}/tasks/${props.taskId}/upload_img`, {
             method: "POST",
@@ -21,7 +22,13 @@ export default (props) => {
         })
         getTasks()
         setPreview(false)
-        
+    }
+
+    const removeImg = async () => {
+        await fetch(`http://${serverHost}:${port}/tasks/${props.taskId}/remove_img`, {
+            method: "POST",
+            credentials: 'include',
+        })
     }
 
     const previewImg = (img) => {
@@ -53,19 +60,20 @@ export default (props) => {
     return <>
         {file && !preview && <>
             <img src={`http://${serverHost}:${port}/img-task/${props.fileName}`} width={100} /* height={50} */
-            onMouseDown={(e) => { e.target.width = 500 }} 
-            onMouseUp={(e) => { e.target.width = 100 }}
+                onMouseDown={(e) => { e.target.width = 500 }}
+                onMouseUp={(e) => { e.target.width = 100 }}
             />
-            <button style={{ fontSize: '13px', margin: 5 }} className="fa fa-edit" onClick={() => {setFile(null) }} />
+            <br />
+            <button style={{ fontSize: '13px', margin: 5 }} onClick={ () => {  removeImg(), setFile(null) }}>remove picture</button>
             <br />
         </>
         }
         {preview && <>
             <img id="preview" width={300} /><br />
-            <button type="button" onClick={uploadImg} className="fa fa-upload" style={{fontSize: '33px'}}/><br />
+            <button type="button" onClick={uploadImg} className="fa fa-upload" style={{ fontSize: '33px' }} /><br />
         </>}
 
-        {!file &&<>
+        {!file && <>
             <div {...getRootProps()}>
                 <input id="uploadImg" {...getInputProps()} />
                 {isDragActive ? <strong style={{ color: "black", fontSize: 50 }}>Drop the files here</strong> :
