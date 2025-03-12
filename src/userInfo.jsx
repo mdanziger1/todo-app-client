@@ -6,8 +6,16 @@ import UploadImg from './uploadImg';
 
 export default () => {
     const navigate = useNavigate()
+
+    function b64DecodeUnicode(str) {
+        // Going backwards: from bytestream, to percent-encoding, to original string.
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
+    
     try {
-        let userInfo = JSON.parse(atob(Cookies.get('user')))
+        let userInfo = JSON.parse(b64DecodeUnicode(Cookies.get('user')))
         let address = JSON.parse(userInfo.Address)
         return <>
             <Logout navigate={() => { navigate('/login') }} /> <br />

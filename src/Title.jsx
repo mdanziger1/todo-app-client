@@ -2,8 +2,15 @@ import { useEffect, useState } from "react"
 import Cookies from 'js-cookie'
 
 export default (prop) => {
+
+    function b64DecodeUnicode(str) {
+        // Going backwards: from bytestream, to percent-encoding, to original string.
+        return decodeURIComponent(atob(str).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
     try {
-        let userInfo = JSON.parse(atob(Cookies.get('user')))
+        let userInfo = JSON.parse(b64DecodeUnicode(Cookies.get('user')))
         let name = `${userInfo.first_name} ${userInfo.last_name}`
 
         const [title, setTitle] = useState(`Hi welcome '${name}'`)
@@ -30,7 +37,7 @@ export default (prop) => {
     } catch (error) {
         console.error(error)
         return <>
-       <p>some error</p>
+            <p>some error</p>
         </>
     }
 

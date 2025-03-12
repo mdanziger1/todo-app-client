@@ -74,7 +74,7 @@ export default (props) => {
         </>}
 
         {!file && <>
-            <div {...getRootProps()}>
+            <div {...getRootProps()} style={{cursor: 'pointer'}}>
                 <input id="uploadImg" {...getInputProps()} />
                 {isDragActive ? <strong style={{ color: "black", fontSize: 50 }}>Drop the files here</strong> :
                     <span style={{ color: "black", fontSize: 15 }}>drop or click here to upload a task image</span>}

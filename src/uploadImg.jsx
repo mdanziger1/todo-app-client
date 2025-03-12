@@ -42,12 +42,13 @@ export default (props) => {
         maxFiles: 1
     })
     return <>
-        <section id="uploedSection">
+        <section id="uploedSection" style={{ cursor: 'pointer' }}>
             {!profile && <>
                 <label htmlFor='profile'> <strong>profile picture: </strong></label>
                 <div {...getRootProps()}>
                     <input id='profile' {...getInputProps()} />
-                    {isDragActive ? <strong style={{ fontSize: 50 }}>Drop the files here</strong> : <p>drop or click select files</p>}
+                    {isDragActive ? <strong style={{ fontSize: 50 }}>Drop the files here</strong> :
+                        <p style={{ fontWeight: "bold", fontStyle: "italic" }}>drop or click select files</p>}
                     {fileReject && <p style={{ color: 'red' }}>only 1 image type and up to 2 MB is allowed</p>}
                 </div></>}
 
